@@ -4,7 +4,7 @@ A **lightweight**, **fully customizable**, **version-independent** mod detection
 
 ---
 
-<img src="https://vip.123pan.cn/1822176294/20448334" width="728" height="200"  alt=""/>
+<img src="https://imgur.com/a/8gDQc1v" width="728" height="200"  alt=""/>
 
 ## ✨ Features
 

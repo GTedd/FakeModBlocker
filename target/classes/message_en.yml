@@ -1,0 +1,18 @@
+# Plugin prefix (used in all messages/logs)
+prefix: "&7[&cModBlocker&7] "
+
+log:
+  channel-list: "Player %player% is listening on plugin channels: %channels%"
+  detected-mods: "%player% is using forbidden mods: %mods%"
+  plugin-message: "%player% sent mod-related plugin message: %mod%"
+
+kick:
+  reason-default: "&c&lWarning: Detected unauthorized modifications! This server strictly prohibits cheating mods and hacked clients. Please disable them and rejoin."
+  mods:
+    xaeroworldmap: "&cFabric mod detected! Please disable it before joining the server."
+    creativecore: "&cCreativeCore detected! Please disable it before joining the server."
+
+command:
+  no-permission: "&cYou do not have permission to use this command."
+  reload-success: "&aModBlocker configuration and messages reloaded successfully."
+  usage: "&eUsage: /modblocker reload"

@@ -4,7 +4,7 @@ A **lightweight**, **fully customizable**, **version-independent** mod detection
 
 ---
 
-<img src="https://files.catbox.moe/8j2rr5.png" width="728" height="200"  alt=""/>
+<img src="https://files.catbox.moe/8j2rr5.png" width="728" height="300"  alt=""/>
 
 ## ✨ Features
 

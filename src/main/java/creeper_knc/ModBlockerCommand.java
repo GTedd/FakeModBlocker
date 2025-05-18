@@ -1,15 +1,16 @@
 package creeper_knc;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Bukkit;
+import org.bukkit.command.*;
+import org.bukkit.entity.Player;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static creeper_knc.FakeModBlocker.hexSupport;
 
-public class ModBlockerCommand implements CommandExecutor {
+public class ModBlockerCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -25,8 +26,55 @@ public class ModBlockerCommand implements CommandExecutor {
             return true;
         }
 
+        if (args.length == 2 && args[0].equalsIgnoreCase("check")) {
+            Player target = Bukkit.getPlayerExact(args[1]);
+            if (target == null || !target.isOnline()) {
+                sender.sendMessage(colorize(getMsg("command.player-not-found").replace("%player%", args[1])));
+                return true;
+            }
+
+            List<String> channels = new ArrayList<>(target.getListeningPluginChannels());
+            sender.sendMessage(colorize(getMsg("command.check-header").replace("%player%", target.getName())));
+            sender.sendMessage(colorize(getMsg("command.check-channels") + " " + String.join(", ", channels)));
+
+            List<String> matched = new ArrayList<>();
+            for (String keyword : FakeModBlocker.getInstance().getConfig().getStringList("forbiddenMods")) {
+                for (String ch : channels) {
+                    if (ch.toLowerCase().contains(keyword.toLowerCase())) {
+                        if (!matched.contains(keyword)) matched.add(keyword);
+                    }
+                }
+            }
+
+            if (matched.isEmpty()) {
+                sender.sendMessage(colorize(getMsg("command.check-none")));
+            } else {
+                sender.sendMessage(colorize(getMsg("command.check-matched") + " " + String.join(", ", matched)));
+            }
+            return true;
+        }
+
         sender.sendMessage(colorize(getMsg("command.usage")));
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (!sender.hasPermission("fakemodblocker.admin")) return Collections.emptyList();
+
+        if (args.length == 1) {
+            return Arrays.asList("reload", "check");
+        }
+
+        if (args.length == 2 && args[0].equalsIgnoreCase("check")) {
+            List<String> players = new ArrayList<>();
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                players.add(p.getName());
+            }
+            return players;
+        }
+
+        return Collections.emptyList();
     }
 
     private String getMsg(String path) {

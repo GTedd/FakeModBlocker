@@ -9,8 +9,8 @@ softdepend: [PlaceholderAPI, LuckPerms]
 website: https://afdian.com/a/CreeperFamily_ASTW?
 commands:
   modblocker:
-    description: Reload config and messages
-    usage: /modblocker reload
+    description: ModBlocker admin commands
+    usage: /modblocker <reload|check <player>>
     permission: fakemodblocker.admin
 permissions:
   fakemodblocker.admin:

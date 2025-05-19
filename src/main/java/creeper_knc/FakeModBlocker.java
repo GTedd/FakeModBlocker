@@ -24,6 +24,7 @@ public class FakeModBlocker extends JavaPlugin {
             getDataFolder().mkdirs();
         }
         Objects.requireNonNull(getCommand("modblocker")).setExecutor(new ModBlockerCommand());
+        Objects.requireNonNull(getCommand("modblocker")).setTabCompleter(new ModBlockerCommand());
         getServer().getPluginManager().registerEvents(new ModBlocker(), this);
         getServer().getPluginManager().registerEvents(new ModBlocker(), this);
         getServer().getMessenger().registerIncomingPluginChannel(this, "fml:hs", new ModBlocker());
